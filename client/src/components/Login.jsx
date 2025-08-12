@@ -17,7 +17,7 @@ const Login = () => {
   } = useForm();
   const handleLogin = async (data) => {
     await axios
-      .post("http://localhost:4000/api/user/login", data, {
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/user/login`, data, {
         withCredentials: true 
       })
       .then((res) => {

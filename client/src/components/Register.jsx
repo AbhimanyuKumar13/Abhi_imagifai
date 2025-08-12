@@ -13,7 +13,7 @@ const Register = () => {
 
   const handleRegister = async (data) => {
     await axios
-      .post("http://localhost:4000/api/user/register", data, {
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/user/register`, data, {
         withCredentials: true,
         headers: { "Content-Type": "application/json" },
       })

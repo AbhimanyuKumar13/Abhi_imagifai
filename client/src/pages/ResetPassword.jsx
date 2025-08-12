@@ -15,7 +15,7 @@ const ResetPassword = () => {
     e.preventDefault();
     await axios
       .put(
-        `http://localhost:4000/api/user/password/reset/${token}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/password/reset/${token}`,
         { password, confirmPassword },
         {
           withCredentials: true,

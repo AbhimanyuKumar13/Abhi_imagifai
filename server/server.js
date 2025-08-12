@@ -9,7 +9,7 @@ import imageRouter from "./routes/imageRoutes.js";
 import { removeUnverifiedAccounts } from "./automation/removeUnverifiedAccounts.js";
 import { errorMiddleware } from "./middlewares/error.js";
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 10000;
 const app = express();
 
 
@@ -46,6 +46,4 @@ removeUnverifiedAccounts();
 app.use(errorMiddleware);
 
 
-app.listen(PORT, () => {
-  console.log(`✅ Server is running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
