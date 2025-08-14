@@ -9,27 +9,32 @@ export const AppContextProvider = (props) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [credit, setCredit] = useState(null);
+  const [loadingUser, setLoadingUser] = useState(true); // ✅ Loading state
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
 
-  // ✅ Fetch credits only if user is logged in
+  // ✅ Check if cookie exists before making request
+  const hasAuthCookie = () => {
+    return document.cookie.includes("token="); // Replace with your auth cookie name
+  };
+
+  // ✅ Load credits only if logged in
   const loadCreditsData = async () => {
     try {
-      const { data } = await axios.get(backendUrl + "/api/user/credits", {
+      const { data } = await axios.get(`${backendUrl}/api/user/credits`, {
         withCredentials: true,
       });
       if (data.success) {
         setCredit(data.credits);
-      } else {
-        throw new Error("Unauthorized");
       }
     } catch (error) {
       console.error("loadCreditsData error:", error);
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || "Failed to load credits");
     }
   };
 
+  // ✅ Generate image function
   const generateImage = async (prompt) => {
     if (!user) {
       toast.error("User not logged in");
@@ -37,7 +42,7 @@ export const AppContextProvider = (props) => {
     }
     try {
       const { data } = await axios.post(
-        backendUrl + "/api/image/generate-image",
+        `${backendUrl}/api/image/generate-image`,
         { prompt },
         { withCredentials: true }
       );
@@ -57,6 +62,7 @@ export const AppContextProvider = (props) => {
     }
   };
 
+  // ✅ Logout
   const logout = async () => {
     try {
       await axios.get(`${backendUrl}/api/user/logout`, {
@@ -69,20 +75,33 @@ export const AppContextProvider = (props) => {
       setIsAuthenticated(false);
       setCredit(null);
     }
-  }; 
-  useEffect(() => { 
+  };
+
+  // ✅ Load user on refresh if cookie exists
+  useEffect(() => {
+    if (!hasAuthCookie()) {
+      setLoadingUser(false);
+      return;
+    }
+
     axios
-      .get(backendUrl + "/api/user/me", { withCredentials: true })
+      .get(`${backendUrl}/api/user/me`, { withCredentials: true })
       .then((res) => {
-        setUser(res.data.user);
-        setIsAuthenticated(true);
+        if (res.data?.user) {
+          setUser(res.data.user);
+          setIsAuthenticated(true);
+        }
       })
       .catch(() => {
         setUser(null);
         setIsAuthenticated(false);
+      })
+      .finally(() => {
+        setLoadingUser(false);
       });
   }, []);
- 
+
+  // ✅ Load credits when user changes
   useEffect(() => {
     if (user) {
       loadCreditsData();
@@ -100,9 +119,12 @@ export const AppContextProvider = (props) => {
     loadCreditsData,
     logout,
     generateImage,
+    loadingUser, // for showing loader if needed
   };
 
   return (
-    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
+    <AppContext.Provider value={value}>
+      {props.children}
+    </AppContext.Provider>
   );
 };
