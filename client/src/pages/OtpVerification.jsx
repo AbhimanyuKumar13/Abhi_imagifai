@@ -31,10 +31,7 @@ const OtpVerification = () => {
     }; 
     await axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/user/otp-verification`, data, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
+        withCredentials: true 
       })
       .then((res) => {
         toast.success(res.data.message);

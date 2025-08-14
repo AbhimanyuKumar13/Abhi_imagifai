@@ -9,8 +9,7 @@ export const sendToken = async (user, statusCode, message, res) => {
       expires: new Date(Date.now() + cookieExpireDays * 24 * 60 * 60 * 1000),
       httpOnly: true,
       secure: true,
-      sameSite: "none",
-      domain: "https://imagifai.netlify.app",
+      sameSite: "none", 
     })
     .json({
       success: true,

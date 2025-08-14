@@ -18,10 +18,7 @@ const ResetPassword = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/user/password/reset/${token}`,
         { password, confirmPassword },
         {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
+          withCredentials: true 
         }
       )
       .then((res) => {

@@ -14,8 +14,7 @@ const Register = () => {
   const handleRegister = async (data) => {
     await axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/user/register`, data, {
-        withCredentials: true,
-        headers: { "Content-Type": "application/json" },
+        withCredentials: true
       })
       .then((res) => {
         toast.success(res.data.message);

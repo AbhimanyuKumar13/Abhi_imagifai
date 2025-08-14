@@ -13,10 +13,7 @@ const ForgotPassword = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/user/password/forgot`,
         { email },
         {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
+          withCredentials: true 
         }
       )
       .then((res) => {

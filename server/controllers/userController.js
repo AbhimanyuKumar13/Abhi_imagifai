@@ -169,8 +169,7 @@ const logout = catchAsyncError(async (req, res, next) => {
       expires: new Date(Date.now()),
       httpOnly: true,
       secure: true,
-      sameSite: "none",
-      domain: "https://imagifai.netlify.app",
+      sameSite: "none", 
     })
     .json({
       success: true,
