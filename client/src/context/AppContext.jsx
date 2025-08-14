@@ -16,7 +16,7 @@ export const AppContextProvider = (props) => {
 
   // ✅ Check if cookie exists before making request
   const hasAuthCookie = () => {
-    return document.cookie.includes("token="); // Replace with your auth cookie name
+    return document.cookie.includes("token"); // Replace with your auth cookie name
   };
 
   // ✅ Load credits only if logged in
