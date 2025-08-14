@@ -9,8 +9,7 @@ import { toast } from "react-toastify";
 const BuyCredit = () => {
   const { user, backendUrl, loadCreditsData, token } =
     useContext(AppContext);
-  const navigate = useNavigate();
-
+  const navigate = useNavigate(); 
   const initPay = async (order) => {
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,

@@ -9,7 +9,7 @@ import imageRouter from "./routes/imageRoutes.js";
 import { removeUnverifiedAccounts } from "./automation/removeUnverifiedAccounts.js";
 import { errorMiddleware } from "./middlewares/error.js";
 
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT;
 const app = express();
 
 
