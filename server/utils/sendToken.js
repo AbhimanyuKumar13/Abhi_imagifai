@@ -10,6 +10,7 @@ export const sendToken = async (user, statusCode, message, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
+      domain: "https://imagifai.netlify.app",
     })
     .json({
       success: true,
