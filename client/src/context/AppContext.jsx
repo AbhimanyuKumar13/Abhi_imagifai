@@ -9,17 +9,11 @@ export const AppContextProvider = (props) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [credit, setCredit] = useState(null);
-  const [loadingUser, setLoadingUser] = useState(true); // ✅ Loading state
+  const [loadingUser, setLoadingUser] = useState(true);  
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const navigate = useNavigate();
-
-  // ✅ Check if cookie exists before making request
-  const hasAuthCookie = () => {
-    return document.cookie.includes("token"); // Replace with your auth cookie name
-  };
-
-  // ✅ Load credits only if logged in
+  const navigate = useNavigate(); 
+ 
   const loadCreditsData = async () => {
     try {
       const { data } = await axios.get(`${backendUrl}/api/user/credits`, {
@@ -33,8 +27,7 @@ export const AppContextProvider = (props) => {
       toast.error(error.response?.data?.message || "Failed to load credits");
     }
   };
-
-  // ✅ Generate image function
+ 
   const generateImage = async (prompt) => {
     if (!user) {
       toast.error("User not logged in");
@@ -61,8 +54,7 @@ export const AppContextProvider = (props) => {
       toast.error(error.response?.data?.message || error.message);
     }
   };
-
-  // ✅ Logout
+ 
   const logout = async () => {
     try {
       await axios.get(`${backendUrl}/api/user/logout`, {
@@ -76,14 +68,8 @@ export const AppContextProvider = (props) => {
       setCredit(null);
     }
   };
-
-  // ✅ Load user on refresh if cookie exists
-  useEffect(() => {
-    if (!hasAuthCookie()) {
-      setLoadingUser(false);
-      return;
-    }
-
+ 
+  useEffect(() => {  
     axios
       .get(`${backendUrl}/api/user/me`, { withCredentials: true })
       .then((res) => {
@@ -100,8 +86,7 @@ export const AppContextProvider = (props) => {
         setLoadingUser(false);
       });
   }, []);
-
-  // ✅ Load credits when user changes
+ 
   useEffect(() => {
     if (user) {
       loadCreditsData();
@@ -119,7 +104,7 @@ export const AppContextProvider = (props) => {
     loadCreditsData,
     logout,
     generateImage,
-    loadingUser, // for showing loader if needed
+    loadingUser, 
   };
 
   return (
