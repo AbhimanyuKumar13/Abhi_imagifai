@@ -6,6 +6,7 @@
   "type": "module",
   "author": "",
   "main": "server.js",
+  "proxy": "https://imagifai.netlify.app",
   "scripts": {
     "start": "node server.js"
   },
