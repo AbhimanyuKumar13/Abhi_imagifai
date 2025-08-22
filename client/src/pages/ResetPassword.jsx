@@ -19,10 +19,8 @@ const ResetPassword = () => {
         { withCredentials: true }
       );
 
-      toast.success(res.data.message || "Password reset successful. Please login.");
-      
-      // ✅ Redirect to login page (manual login required)
-      navigate("/login");
+      toast.success(res.data.message || "Password reset successful. Please login."); 
+      navigate("/auth");
 
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to reset password");
