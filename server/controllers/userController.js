@@ -223,31 +223,34 @@ const resetPassword = catchAsyncError(async (req, res, next) => {
     .createHash("sha256")
     .update(token)
     .digest("hex");
+
   const user = await User.findOne({
     resetPasswordToken,
     resetPasswordExpire: { $gt: Date.now() },
   });
+
   if (!user) {
     return next(
-      new ErrorHandler(
-        "Reset password token is invalid or has been expired.",
-        400
-      )
+      new ErrorHandler("Reset password token is invalid or has been expired.", 400)
     );
   }
+
   if (req.body.password !== req.body.confirmPassword) {
     return next(
-      new ErrorHandler(" password and confirm password do not match.", 400)
+      new ErrorHandler("Password and confirm password do not match.", 400)
     );
   }
 
   user.password = req.body.password;
   user.resetPasswordExpire = undefined;
   user.resetPasswordToken = undefined;
-  await user.save();
-
-  sendToken(user, 200, "password reset successfully.", res);
+  await user.save(); 
+  res.status(200).json({
+    success: true,
+    message: "Password reset successfully. Please login manually.",
+  });
 });
+
 const getUser = catchAsyncError(async (req, res, next) => {
   const user = req.user;
 

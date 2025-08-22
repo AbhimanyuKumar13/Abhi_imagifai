@@ -1,71 +1,60 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import "../styles/ResetPassword.css";
 import axios from "axios";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify"; 
-import { AppContext } from "../context/AppContext";
 
 const ResetPassword = () => {
-  const { isAuthenticated, setIsAuthenticated, setUser } = useContext(AppContext);
   const { token } = useParams();
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    await axios
-      .put(
+    try {
+      const res = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/user/password/reset/${token}`,
         { password, confirmPassword },
-        {
-          withCredentials: true 
-        }
-      )
-      .then((res) => {
-        toast.success(res.data.message);
-        setIsAuthenticated(true);
-        setUser(res.data.user);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
+        { withCredentials: true }
+      );
+
+      toast.success(res.data.message || "Password reset successful. Please login.");
+      
+      // ✅ Redirect to login page (manual login required)
+      navigate("/login");
+
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to reset password");
+    }
   };
-  if (isAuthenticated) {
-    return <Navigate to={"/"} />;
-  }
 
   return (
-    <>
-      <div className="reset-password-page">
-        <div className="reset-password-container">
-          <h2>Reset Password</h2>
-          <p>Enter your new password below.</p>
-          <form onSubmit={handleResetPassword} className="reset-password-form">
-            <input
-              type="password"
-              placeholder="new password"
-              required
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              value={password}
-              className="reset-input"
-            />
-            <input
-              type="password"
-              placeholder="confirm new password"
-              required
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-              }}
-              value={confirmPassword}
-              className="reset-input"
-            />
-            <button type="submit" className="reset-btn">Reset Password</button>
-          </form>
-        </div>
+    <div className="reset-password-page">
+      <div className="reset-password-container">
+        <h2>Reset Password</h2>
+        <p>Enter your new password below.</p>
+        <form onSubmit={handleResetPassword} className="reset-password-form">
+          <input
+            type="password"
+            placeholder="new password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            className="reset-input"
+          />
+          <input
+            type="password"
+            placeholder="confirm new password"
+            required
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmPassword}
+            className="reset-input"
+          />
+          <button type="submit" className="reset-btn">Reset Password</button>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 
