@@ -8,8 +8,7 @@ export const AppContext = createContext();
 export const AppContextProvider = (props) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [credit, setCredit] = useState(null);
-  const [loadingUser, setLoadingUser] = useState(true); // ✅ Loading state
+  const [credit, setCredit] = useState(null); 
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate(); 
@@ -81,10 +80,7 @@ export const AppContextProvider = (props) => {
       .catch(() => {
         setUser(null);
         setIsAuthenticated(false);
-      })
-      .finally(() => {
-        setLoadingUser(false);
-      });
+      }) 
   }, []);
  
   useEffect(() => {
