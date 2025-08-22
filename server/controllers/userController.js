@@ -168,8 +168,10 @@ const logout = catchAsyncError(async (req, res, next) => {
     .cookie("token", "", {
       expires: new Date(Date.now()),
       httpOnly: true,
-      secure: true,
-      sameSite: "none", 
+      secure: true, 
+      sameSite: "none",  
+      domain: ".abhipandit.online",  
+      path: "/",
     })
     .json({
       success: true,

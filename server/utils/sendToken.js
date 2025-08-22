@@ -8,7 +8,10 @@ export const sendToken = async (user, statusCode, message, res) => {
     .cookie("token", token, {
       expires: new Date(Date.now() + cookieExpireDays * 24 * 60 * 60 * 1000),
       httpOnly: true,
-      secure: true, 
+      secure: true,  
+      sameSite: "none",  
+      domain: ".abhipandit.online",  
+      path: "/",
     })
     .json({
       success: true,
