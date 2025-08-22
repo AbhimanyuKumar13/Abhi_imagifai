@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(
   cors({
-    origin: ["https://abhipandit.online", "https://www.abhipandit.online"], 
+    origin: ["https://imagifai.netlify.app", "https://abhipandit.online", "https://www.abhipandit.online"], 
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
