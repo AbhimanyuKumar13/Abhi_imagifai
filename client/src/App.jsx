@@ -10,7 +10,7 @@ import OtpVerification from "./pages/OtpVerification";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import { NavBar } from "./components/NavBar";
-import { Footer } from "./components/Footer";
+import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {

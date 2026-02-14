@@ -1,6 +1,7 @@
-import React from 'react'
-import { stepsData } from '../assets/assets'
-import { motion } from "motion/react"
+import React from "react";
+import { stepsData } from "../assets/assets";
+import { motion } from "motion/react";
+import styles from "./Steps.module.css";
 
 export const Steps = () => {
   return (
@@ -9,34 +10,31 @@ export const Steps = () => {
       transition={{ duration: 1 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="flex flex-col items-center justify-center px-4 py-16 sm:px-8 lg:px-16"
+      className={styles.container}
     >
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold mb-2 text-center">
+      <h1 className={styles.heading}>
         How it Works
       </h1>
-      <p className="text-base sm:text-lg text-gray-600 mb-8 text-center">
+
+      <p className={styles.subheading}>
         Transform words into Stunning Images
       </p>
 
-      {/* Steps Container */}
-      <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl">
+      <div className={styles.stepsGrid}>
         {stepsData.map((item, index) => (
-          <div
-            key={index}
-            className="flex items-start sm:items-center gap-4 p-5 bg-white shadow-md cursor-pointer hover:scale-[1.02] transition-all duration-300 rounded-lg"
-          >
+          <div key={index} className={styles.card}>
             <img
               src={item.icon}
               alt="item_icon"
-              className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
+              className={styles.icon}
             />
             <div>
-              <h2 className="text-lg sm:text-xl font-medium">{item.title}</h2>
-              <p className="text-sm text-gray-500">{item.description}</p>
+              <h2 className={styles.title}>{item.title}</h2>
+              <p className={styles.description}>{item.description}</p>
             </div>
           </div>
         ))}
       </div>
     </motion.div>
-  )
-}
+  );
+};

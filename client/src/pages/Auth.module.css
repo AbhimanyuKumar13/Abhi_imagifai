@@ -1,0 +1,72 @@
+/* ===== Base: Mobile First ===== */
+
+.authPage {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+  padding: 1.5rem 1rem;
+}
+
+.authContainer {
+  width: 100%;
+  max-width: 100%;
+  background: #ffffff;
+  padding: 1.75rem 1.25rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Toggle */
+.toggle {
+  display: flex;
+  background: #f1f5f9;
+  border-radius: 10px;
+  margin-bottom: 1.75rem;
+  overflow: hidden;
+}
+
+.toggleBtn {
+  flex: 1;
+  padding: 0.75rem 0;
+  border: none;
+  background: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: #374151;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.toggleBtn:active {
+  transform: scale(0.97);
+}
+
+.active {
+  background: #111827;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ===== Tablet & Desktop Enhancements ===== */
+
+@media (min-width: 640px) {
+  .authContainer {
+    max-width: 460px;
+    padding: 2rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .toggleBtn {
+    font-size: 1rem;
+    padding: 0.8rem 0;
+  }
+
+  .toggleBtn:hover {
+    background: #e5e7eb;
+  }
+
+  .active:hover {
+    background: #111827;
+  }
+}

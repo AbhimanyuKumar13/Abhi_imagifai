@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import { assets } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
+import styles from "./NavBar.module.css";
 
 export const NavBar = () => {
   const navigate = useNavigate();
@@ -10,18 +11,17 @@ export const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  // Function to get a color based on the user's name
   const getColorFromName = (name) => {
     const colors = [
-      "bg-red-500",
-      "bg-green-500",
-      "bg-blue-500",
-      "bg-yellow-500",
-      "bg-purple-500",
-      "bg-pink-500",
-      "bg-indigo-500",
-      "bg-teal-500",
-      "bg-orange-500",
+      styles.red,
+      styles.green,
+      styles.blue,
+      styles.yellow,
+      styles.purple,
+      styles.pink,
+      styles.indigo,
+      styles.teal,
+      styles.orange,
     ];
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
@@ -30,7 +30,6 @@ export const NavBar = () => {
     return colors[Math.abs(hash) % colors.length];
   };
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -44,32 +43,40 @@ export const NavBar = () => {
   }, []);
 
   return (
-    <div className="flex justify-between items-center py-4">
+    <div className={styles.container}>
       <Link to="/">
-        <img src={assets.imagifai} className="w-28 sm:w-32 lg:w-40" alt="logo" />
+        <img
+          src={assets.imagifai}
+          className={styles.logo}
+          alt="logo"
+        />
       </Link>
+
       <div>
         {user ? (
-          <div className="flex items-center gap-2 sm:gap-3 relative">
-            {/* Credits Button */}
+          <div className={styles.authSection}>
             <button
               onClick={() => navigate("/buy")}
-              className="flex items-center gap-2 sm:gap-3 bg-blue-100 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-400 cursor-pointer"
+              className={styles.creditButton}
             >
-              <img className="w-5" src={assets.credit_star} alt="credit_star" />
-              <p className="text-xs sm:text-sm font-medium text-gray-600">
+              <img
+                className={styles.creditIcon}
+                src={assets.credit_star}
+                alt="credit_star"
+              />
+              <p className={styles.creditText}>
                 Credits Left : {credit}
               </p>
             </button>
 
-            {/* Greeting */}
-            <p className="text-gray-600 max-sm:hidden pl-4">Hii, {user.name}</p>
+            <p className={styles.greeting}>
+              Hii, {user.name}
+            </p>
 
-            {/* Profile Circle with Dropdown */}
-            <div className="relative" ref={menuRef}>
+            <div className={styles.profileWrapper} ref={menuRef}>
               <div
                 onClick={() => setMenuOpen((prev) => !prev)}
-                className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold cursor-pointer ${getColorFromName(
+                className={`${styles.profileCircle} ${getColorFromName(
                   user.name
                 )}`}
               >
@@ -77,11 +84,11 @@ export const NavBar = () => {
               </div>
 
               {menuOpen && (
-                <div className="absolute top-12 right-0 z-10 text-black rounded shadow-lg">
-                  <ul className="list-none m-0 py-1 font-medium px-2 bg-white rounded-lg border text-sm">
+                <div className={styles.dropdown}>
+                  <ul className={styles.dropdownList}>
                     <li
                       onClick={logout}
-                      className="px-2 py-1 cursor-pointer pr-5 hover:bg-gray-100 rounded"
+                      className={styles.dropdownItem}
                     >
                       Logout
                     </li>
@@ -91,14 +98,17 @@ export const NavBar = () => {
             </div>
           </div>
         ) : (
-          /* Not Logged In */
-          <div className="flex items-center gap-2 sm:gap-5">
-            <p onClick={() => navigate("/buy")} className="cursor-pointer">
+          <div className={styles.guestSection}>
+            <p
+              onClick={() => navigate("/buy")}
+              className={styles.pricing}
+            >
               Pricing
             </p>
+
             <button
               onClick={() => navigate("/auth")}
-              className="bg-zinc-800 text-white px-7 py-2 sm:px-10 text-lg rounded-full cursor-pointer"
+              className={styles.loginButton}
             >
               Log in
             </button>

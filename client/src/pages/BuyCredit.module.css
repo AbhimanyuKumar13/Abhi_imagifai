@@ -1,0 +1,120 @@
+/* ===== Base (Mobile First) ===== */
+
+.page {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Plans */
+
+.planContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  text-align: left;
+  transition: transform 0.2s ease;
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+.icon {
+  width: 40px;
+  margin-bottom: 1rem;
+}
+
+.planName {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.desc {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 1.25rem;
+}
+
+.priceSection {
+  margin-bottom: 1.5rem;
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.credits {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.cta {
+  width: 100%;
+  padding: 0.9rem;
+  background: #111827;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.cta:hover {
+  background: #1f2937;
+}
+
+.cta:active {
+  transform: scale(0.97);
+}
+
+/* ===== Tablet & Desktop ===== */
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .planContainer {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .card {
+    width: 280px;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+  }
+}

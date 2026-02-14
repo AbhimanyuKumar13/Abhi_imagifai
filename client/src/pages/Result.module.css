@@ -1,0 +1,174 @@
+/* ========== Base: Mobile First ========== */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 3.5rem 1rem 2rem;
+  text-align: center;
+}
+
+/* Image Section */
+.imageSection {
+  width: 100%;
+  margin-bottom: 1.75rem;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Loading Bar */
+.loadingBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 0;
+  background: #2563eb;
+  transition: width 6s linear;
+  border-radius: 0 0 14px 14px;
+}
+
+.loadingActive {
+  width: 100%;
+}
+
+.loadingText {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* Input Section */
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.75rem;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Full-width mobile button */
+.generateBtn {
+  width: 100%;
+  background: #111827;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.generateBtn:active {
+  transform: scale(0.97);
+}
+
+/* Action Buttons (after image generated) */
+.actionContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.75rem;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.primaryBtn {
+  background: #111827;
+  color: white;
+  text-decoration: none;
+}
+
+.secondaryBtn {
+  background: transparent;
+  border: 1px solid #111827;
+  color: #111827;
+}
+
+/* ========== Tablet & Desktop Enhancements ========== */
+
+@media (min-width: 640px) {
+  .page {
+    justify-content: center;
+  }
+
+  .image {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .inputContainer {
+    flex-direction: row;
+    background: #f3f4f6;
+    border-radius: 9999px;
+    padding: 0.4rem;
+    align-items: center;
+  }
+
+  .input {
+    border: none;
+    background: transparent;
+    padding: 0.8rem 1.2rem;
+  }
+
+  .generateBtn {
+    width: auto;
+    padding: 0.75rem 1.75rem;
+    border-radius: 9999px;
+  }
+
+  .actionContainer {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    width: auto;
+    border-radius: 9999px;
+    padding: 0.75rem 1.75rem;
+  }
+
+  .generateBtn:hover,
+  .primaryBtn:hover {
+    background: #1f2937;
+  }
+
+  .secondaryBtn:hover {
+    background: #f3f4f6;
+  }
+}

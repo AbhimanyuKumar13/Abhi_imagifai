@@ -3,27 +3,30 @@ import { assets } from "../assets/assets";
 import { motion } from "motion/react";
 import { AppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
+import styles from "./Header.module.css";
 
 export const Header = () => {
-  const {user}=useContext(AppContext);
+  const { user } = useContext(AppContext);
   const navigate = useNavigate();
-  const onClickHandler = ()=>{ 
-    if(user){
-      navigate('/result');
-    }else{
-      navigate('/auth');
+
+  const onClickHandler = () => {
+    if (user) {
+      navigate("/result");
+    } else {
+      navigate("/auth");
     }
-  }
+  };
+
   return (
     <motion.div
-      className="flex flex-col justify-cenre items-center text-center my-20"
+      className={styles.container}
       initial={{ opacity: 0.2, y: 100 }}
       transition={{ duration: 1 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
       <motion.div
-        className="text-stone-500 text-center inline-flex gap-2 rounded-full border border-neutral-500 px-6 py-1 bg-white"
+        className={styles.badge}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -32,21 +35,17 @@ export const Header = () => {
         <p>Best Text to image generator</p>
         <img src={assets.star_icon} alt="star_icon" />
       </motion.div>
-      <motion.h1 className="text-4xl max-w-[300px] sm:text-7xl sm:max-w-[590px] mx-auto mt-10 text-center">
+
+      <motion.h1 className={styles.heading}>
         Turn texts to{" "}
-        <span
-          className="text-blue-600"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 2 }}
-        >
+        <span className={styles.highlight}>
           image
         </span>
         , in seconds.
       </motion.h1>
+
       <motion.p
-        className="text-center max-w-xl mx-auto mt-5"
+        className={styles.subtext}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -55,9 +54,10 @@ export const Header = () => {
         Unleash your creativity with AI. Turn your imagination into visual art
         in seconds - just type, and watch the magic happen.
       </motion.p>
+
       <motion.button
         onClick={onClickHandler}
-        className="cursor-pointer sm:text-lg text-white bg-black w-auto mt-8 px-12 py-2.5 flex items-center gap-2 rounded-full"
+        className={styles.button}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0 }}
@@ -68,10 +68,15 @@ export const Header = () => {
         }}
       >
         Generates images
-        <img className="h-6" src={assets.star_group} alt="star_group" />
+        <img
+          className={styles.buttonIcon}
+          src={assets.star_group}
+          alt="star_group"
+        />
       </motion.button>
+
       <motion.div
-        className="flex flex-wrap justify-center mt-13 gap-3"
+        className={styles.previewGrid}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
@@ -81,16 +86,22 @@ export const Header = () => {
           .map((item, index) => (
             <motion.img
               whileHover={{ scale: 1.05, duration: 0.1 }}
-              className="rounded hover:scale-105 transition-all duration-300 cursor-pointer max-sm:w-10"
-              src={index % 2 === 0 ? assets.sample_img_1 : assets.sample_img_2}
+              className={styles.previewImage}
+              src={
+                index % 2 === 0
+                  ? assets.sample_img_1
+                  : assets.sample_img_2
+              }
               key={index}
               alt="sample_imgs"
               width={70}
             />
           ))}
       </motion.div>
-      <motion.p className="mt-2 text-neutral-600"
-      initial={{ opacity: 0 }}
+
+      <motion.p
+        className={styles.caption}
+        initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.8 }}
       >

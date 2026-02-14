@@ -1,53 +1,56 @@
-import {useState } from "react";
-import "../styles/ForgotPassword.css"; 
+import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Navigate } from "react-router-dom";
+import styles from "./ForgotPassword.module.css";
 
-const ForgotPassword = () => { 
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+
   const handleForgotPassword = async (e) => {
     e.preventDefault();
+
     await axios
       .post(
         `${import.meta.env.VITE_BACKEND_URL}/api/user/password/forgot`,
         { email },
-        {
-          withCredentials: true 
-        }
+        { withCredentials: true }
       )
       .then((res) => {
-        toast.success(res.data.message); 
+        toast.success(res.data.message);
       })
       .catch((error) => {
         toast.error(error.response.data.message);
       });
   };
+
   return (
-    <>
-      <div className="forgot-password-page">
-        <div className="forgot-password-container">
-          <h2>Forgot Password</h2>
-          <p>Enter your email address to receive a password reset token.</p>
-          <form
-            onSubmit={handleForgotPassword}
-            className="forgot-password-form"
-          >
-            <input
-              type="email"
-              value={email}
-              placeholder="Enter your Email"
-              onChange={(e) => setEmail(e.target.value)}
-              className="forgot-input"
-              required
-            />
-            <button className="forgot-btn" type="submit">
-              Send Reset Link
-            </button>
-          </form>
-        </div>
+    <div className={styles.page}>
+      <div className={styles.container}>
+        <h2 className={styles.heading}>Forgot Password</h2>
+
+        <p className={styles.description}>
+          Enter your email address to receive a password reset token.
+        </p>
+
+        <form
+          onSubmit={handleForgotPassword}
+          className={styles.form}
+        >
+          <input
+            type="email"
+            value={email}
+            placeholder="Enter your Email"
+            onChange={(e) => setEmail(e.target.value)}
+            className={styles.input}
+            required
+          />
+
+          <button className={styles.button} type="submit">
+            Send Reset Link
+          </button>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 

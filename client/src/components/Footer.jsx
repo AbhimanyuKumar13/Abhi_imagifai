@@ -1,22 +1,55 @@
 import React from "react";
 import { assets } from "../assets/assets";
 import { Link } from "react-router-dom";
+import styles from "./Footer.module.css";
 
-export const Footer = () => {
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <div className="flex items-center justify-between gap-4 py-3 mt-20">
-      <img src={assets.imagifai} alt="logo" width={150} />
-      <p className="flex-1 border-l border-gray-400 pl-4 text-sm text-gray-500 max-sm:hidden">
-        Copyright @Abhi.dev | All right reserved.
-      </p>
-      <div className="flex gap-2.5">
-        <p className="flex items-center justify-center pl-4 text-sm text-gray-500 max-sm:hidden">
-          Contact to Devloper
+    <footer className={styles.footer}>
+      <div className={styles.container}>
+        <img
+          src={assets.imagifai}
+          alt="Imagifai Logo"
+          className={styles.logo}
+          loading="lazy"
+        />
+
+        <p className={styles.copyright}>
+          © {currentYear} Pandit Soft Solution. All rights reserved.
         </p>
-        <Link target="blank" to={"https://abhi050505.netlify.app/"}>
-          <img src={assets.profile_icon} width={35} />
-        </Link>
+
+        <div className={styles.contact}>
+          <p className={styles.tagline}>
+            Product of{" "}
+            <Link
+              to="https://panditsoftsolution.online/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit developer portfolio"
+              className={styles.Org}
+            >
+              Pandit Soft Solution
+            </Link>
+          </p>
+
+          <Link
+            to="https://panditsoftsolution.online/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit developer portfolio"
+          >
+            <img
+              src={assets.profile_icon}
+              alt="Developer Profile"
+              className={styles.profileIcon}
+            />
+          </Link>
+        </div>
       </div>
-    </div>
+    </footer>
   );
 };
+
+export default Footer;

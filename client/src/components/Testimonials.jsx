@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { assets, testimonialsData } from "../assets/assets";
 import { motion } from "motion/react";
+import styles from "./Testimonials.module.css";
 
 export const Testimonials = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
@@ -15,16 +16,17 @@ export const Testimonials = () => {
       transition={{ duration: 1 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="flex flex-col items-center justify-center my-20 px-4"
+      className={styles.container}
     >
-      <h1 className="text-3xl sm:text-4xl font-semibold text-center">
+      <h1 className={styles.heading}>
         Customer Testimonials
       </h1>
-      <p className="text-gray-500 mb-10 text-center">
+
+      <p className={styles.subheading}>
         What our users say
       </p>
 
-      <div className="flex flex-wrap justify-center gap-6">
+      <div className={styles.grid}>
         {testimonialsData.map((testimonial, index) => {
           const shortText =
             testimonial.text.length > 100
@@ -34,24 +36,23 @@ export const Testimonials = () => {
           const isExpanded = expandedIndex === index;
 
           return (
-            <div
-              key={index}
-              className="bg-white/20 p-6 rounded-lg shadow-md border w-72 sm:w-80 cursor-pointer hover:scale-[1.02] transition-all"
-            >
-              <div className="flex flex-col items-center">
+            <div key={index} className={styles.card}>
+              <div className={styles.cardContent}>
                 <img
                   src={testimonial.image}
                   alt="img"
-                  className="rounded-full w-14"
+                  className={styles.avatar}
                 />
-                <h2 className="text-lg font-semibold mt-3">
+
+                <h2 className={styles.name}>
                   {testimonial.name}
                 </h2>
-                <p className="text-gray-400 text-sm mb-3">
+
+                <p className={styles.role}>
                   {testimonial.role}
                 </p>
 
-                <div className="flex mb-3">
+                <div className={styles.stars}>
                   {Array(testimonial.stars)
                     .fill()
                     .map((_, i) => (
@@ -59,19 +60,19 @@ export const Testimonials = () => {
                         key={i}
                         src={assets.rating_star}
                         alt="star"
-                        className="w-4 h-4"
+                        className={styles.star}
                       />
                     ))}
                 </div>
 
-                <p className="text-center text-sm text-gray-600 mb-2">
+                <p className={styles.text}>
                   {isExpanded ? testimonial.text : shortText}
                 </p>
 
                 {testimonial.text.length > 100 && (
                   <button
                     onClick={() => toggleExpand(index)}
-                    className="text-blue-500 text-sm hover:underline focus:outline-none"
+                    className={styles.button}
                   >
                     {isExpanded ? "Show Less" : "Read More"}
                   </button>

@@ -59,24 +59,24 @@ export const stepsData = [
 export const testimonialsData = [
   {
     image: profile_img_1,
-    name: "Donald Jackman",
-    role: "Graphic Designer",
+    name: "Abhishek Anand",
+    role: "UI/UX Designer",
     stars: 5,
-    text: `I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`,
+    text: `I've been using Imagifai for nearly a month, primarily for AI imges, and it has been incredibly user-friendly, making my work much easier.`,
   },
   {
     image: profile_img_2,
-    name: "Richard Nelson",
+    name: "Abhi Pandit",
     role: "Content Creator",
     stars: 4,
-    text: `I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`,
+    text: `I've been using Imagifai for nearly one years, primarily for AI imges, and it has been affordable, user-friendly, making my work much easier.`,
   },
   {
     image: profile_img_1,
-    name: "Donald Jackman",
-    role: " Graphic Designer",
+    name: "Anand Raj",
+    role: " Software Engineer",
     stars: 5,
-    text: `I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`,
+    text: `I've been using Imagifai for nearly six months, primarily for AI images, and it has been incredibly Realistic, making my work much easier.`,
   },
 ];
 

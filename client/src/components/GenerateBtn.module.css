@@ -1,0 +1,86 @@
+.container {
+  padding-bottom: 4rem;
+  text-align: center;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #262626;
+  margin-top: 1rem;
+  padding: 1.5rem 0;
+}
+
+@media (min-width: 768px) {
+  .heading {
+    font-size: 1.875rem;
+    padding: 4rem 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading {
+    font-size: 2.25rem;
+  }
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 3rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #ffffff;
+
+  background: linear-gradient(
+    120deg,
+    #2563eb,
+    #7c3aed,
+    #ec4899,
+    #f97316,
+    #2563eb
+  );
+
+  background-size: 300% 300%;
+  animation: colorCycle 8s ease infinite;
+
+  box-shadow: 0 15px 40px rgba(37, 99, 235, 0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Smooth cycling */
+@keyframes colorCycle {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.button:hover {
+  transform: translateY(-3px) scale(1.04);
+}
+
+
+.icon {
+  height: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.button:hover .icon {
+  transform: rotate(8deg) scale(1.05);
+}
