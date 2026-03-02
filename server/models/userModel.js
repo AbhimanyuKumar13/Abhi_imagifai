@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     select: false,
     required: true,
   },
-  creditBalance: { type: Number, default: 2 },
+  creditBalance: { type: Number, default: 0 },
   accountVerified: { type: Boolean, default: false },
   VerificationCode: Number,
   VerificationCodeExpire: Date,
