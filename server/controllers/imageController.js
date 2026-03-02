@@ -46,7 +46,7 @@ export const generateImage = async (req, res) => {
         },
         responseType: "arraybuffer",
         timeout: 30000,
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -69,11 +69,17 @@ export const generateImage = async (req, res) => {
       creditBalance: user.creditBalance,
       resultImage,
     });
-
   } catch (error) {
-    console.error("Pollinations Error:",
-      error.response?.data || error.message
-    );
+    if (error.response?.data) {
+      try {
+        const decoded = Buffer.from(error.response.data).toString("utf8");
+        console.error("Pollinations decoded error:", decoded);
+      } catch {
+        console.error("Pollinations raw error:", error.response.data);
+      }
+    } else {
+      console.error("General error:", error.message);
+    }
 
     return res.status(500).json({
       success: false,
