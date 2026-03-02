@@ -7,12 +7,18 @@ export const generateImage = async (req, res) => {
     const userId = req.user?._id;
 
     if (!userId || !prompt) {
-      return res.status(400).json({ success: false, message: "Missing details" });
+      return res.status(400).json({
+        success: false,
+        message: "Missing details",
+      });
     }
 
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
     }
 
     if (user.creditBalance <= 0) {
@@ -23,27 +29,37 @@ export const generateImage = async (req, res) => {
       });
     }
 
-    // Encode prompt properly
+    if (!process.env.POLLINATIONS_API_KEY) {
+      return res.status(500).json({
+        success: false,
+        message: "AI service not configured",
+      });
+    }
+
     const encodedPrompt = encodeURIComponent(prompt);
 
-    // Pollinations endpoint
     const response = await axios.get(
-      `https://gen.pollinations.ai/image/${encodedPrompt}`,
+      `https://gen.pollinations.ai/image/${encodedPrompt}?width=512&height=512`,
       {
         headers: {
           Authorization: `Bearer ${process.env.POLLINATIONS_API_KEY}`,
         },
-        responseType: "arraybuffer", // important: image binary
+        responseType: "arraybuffer",
+        timeout: 30000,
       }
     );
 
-    // Convert image buffer to Base64
-    const base64Image = Buffer.from(response.data).toString("base64");
+    if (response.status !== 200) {
+      return res.status(500).json({
+        success: false,
+        message: "Image generation failed",
+      });
+    }
 
-    // Data URI (default jpg from pollinations)
+    const base64Image = Buffer.from(response.data).toString("base64");
     const resultImage = `data:image/jpeg;base64,${base64Image}`;
 
-    // Deduct credit
+    // Deduct credit ONLY after successful generation
     user.creditBalance -= 1;
     await user.save();
 
@@ -55,7 +71,10 @@ export const generateImage = async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error.response?.data || error.message);
+    console.error("Pollinations Error:",
+      error.response?.data || error.message
+    );
+
     return res.status(500).json({
       success: false,
       message: "Image generation failed",
