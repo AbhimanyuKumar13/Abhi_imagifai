@@ -1,5 +1,4 @@
 import axios from "axios";
-import FormData from "form-data";
 import { User } from "../models/userModel.js";
 
 export const generateImage = async (req, res) => {
@@ -24,32 +23,25 @@ export const generateImage = async (req, res) => {
       });
     }
 
-    // Prepare form-data for Stability API
-    const formData = new FormData();
-    formData.append("prompt", prompt);
-    formData.append("output_format", "png"); // Optional: png, jpg, webp
-    formData.append("width", 512);
-    formData.append("height", 512);
+    // Encode prompt properly
+    const encodedPrompt = encodeURIComponent(prompt);
 
-    const { data } = await axios.post(
-      "https://api.stability.ai/v2beta/stable-image/generate/core",
-      formData,
+    // Pollinations endpoint
+    const response = await axios.get(
+      `https://gen.pollinations.ai/image/${encodedPrompt}`,
       {
         headers: {
-          ...formData.getHeaders(),
-          "Authorization": `Bearer ${process.env.STABILITY_API_KEY}`,
-          "Accept": "application/json"
+          Authorization: `Bearer ${process.env.POLLINATIONS_API_KEY}`,
         },
-        responseType: "json"
+        responseType: "arraybuffer", // important: image binary
       }
     );
 
-    if (!data.image) {
-      return res.status(500).json({ success: false, message: "Image generation failed" });
-    }
+    // Convert image buffer to Base64
+    const base64Image = Buffer.from(response.data).toString("base64");
 
-    // Convert Base64 to Data URI
-    const resultImage = `data:image/png;base64,${data.image}`;
+    // Data URI (default jpg from pollinations)
+    const resultImage = `data:image/jpeg;base64,${base64Image}`;
 
     // Deduct credit
     user.creditBalance -= 1;
@@ -64,6 +56,9 @@ export const generateImage = async (req, res) => {
 
   } catch (error) {
     console.log(error.response?.data || error.message);
-    res.status(500).json({ success: false, message: error.message });
+    return res.status(500).json({
+      success: false,
+      message: "Image generation failed",
+    });
   }
 };
