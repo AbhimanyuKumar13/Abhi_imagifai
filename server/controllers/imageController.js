@@ -39,7 +39,7 @@ export const generateImage = async (req, res) => {
     const encodedPrompt = encodeURIComponent(prompt);
 
     const response = await axios.get(
-      `https://gen.pollinations.ai/image/${encodedPrompt}?width=512&height=512`,
+      `https://gen.pollinations.ai/image/{prompt}?width=512&height=512&model=flux`,
       {
         headers: {
           Authorization: `Bearer ${process.env.POLLINATIONS_API_KEY}`,
