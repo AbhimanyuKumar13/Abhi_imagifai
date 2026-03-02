@@ -2,6 +2,7 @@ import axios from "axios";
 import { User } from "../models/userModel.js";
 
 export const generateImage = async (req, res) => {
+  const AI_MODEL = process.env.POLLINATIONS_MODEL || "flux";
   try {
     const { prompt } = req.body;
     const userId = req.user?._id;
@@ -39,7 +40,7 @@ export const generateImage = async (req, res) => {
     const encodedPrompt = encodeURIComponent(prompt);
 
     const response = await axios.get(
-      `https://gen.pollinations.ai/image/{prompt}?width=512&height=512&model=flux`,
+      `https://gen.pollinations.ai/image/${encodedPrompt}?width=512&height=512&model=${AI_MODEL}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.POLLINATIONS_API_KEY}`,
